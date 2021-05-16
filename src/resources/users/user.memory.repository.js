@@ -1,4 +1,5 @@
 const User = require('./user.model');
+const { emptyUserIdOnUserDeletion } = require('../tasks/task.memory.repository');
 
 const userData = [];
 
@@ -20,14 +21,14 @@ const updateUser = async (id, data) => {
       userData[i].login = login;
       userData[i].password = password;
     }
-    return user;
   });
   return data;
 };
 
 const deleteUser = async id => {
-  const i = await userData.findIndex(user => user.id === id);
-  await userData.splice(i, 1);
+  const i = userData.findIndex(user => user.id === id);
+  userData.splice(i, 1);
+  await emptyUserIdOnUserDeletion(id);
   return null;
 };
 

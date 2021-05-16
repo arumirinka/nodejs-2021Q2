@@ -47,11 +47,21 @@ const deleteTasksOnBoardDeletion = async boardId => {
   taskData = taskData.filter(task => task.boardId !== boardId);
 };
 
+const emptyUserIdOnUserDeletion = async userId => {
+  taskData.forEach((task, i) => {
+    if (task.userId === userId) {
+      taskData[i].userId = null;
+    }
+  });
+  return null;
+}; 
+
 module.exports = {
   getAllTasksBID,
   getTaskById,
   addTask,
   updateTask,
   deleteTask,
-  deleteTasksOnBoardDeletion
+  deleteTasksOnBoardDeletion,
+  emptyUserIdOnUserDeletion
 };
