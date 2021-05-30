@@ -1,8 +1,9 @@
-const router = require('express').Router();
-const boardsService = require('./board.service');
-const taskRouter = require('../tasks/task.router');
+import * as express from 'express';
+import boardsService from './board.service';
 
-router.route('/').get(async (req, res) => {
+const router = express.Router();
+
+router.route('/').get(async (_req, res) => {
   const boards = await boardsService.getAllBoards();
   return res.json(boards);
 });
@@ -25,11 +26,11 @@ router.route('/:boardId').put(async (req, res) => {
   if (!board) {
     return res.status(404).json({ message: 'Board not found' });
   }
-  const updBoard = await boardsService.updateBoard(
+  await boardsService.updateBoard(
     req.params.boardId,
     req.body
   );
-  return res.status(200).json(updBoard);
+  return res.status(200).json({ message: 'Board has been updated' });
 });
 
 router.route('/:boardId').delete(async (req, res) => {
@@ -38,16 +39,7 @@ router.route('/:boardId').delete(async (req, res) => {
     return res.status(404).json({ message: 'Board not found' });
   }
   await boardsService.deleteBoard(req.params.boardId);
-  return res.status(204).json({ message: 'The board has been deleted' });
+  return res.status(204).json({ message: 'Board has been deleted' });
 });
 
-router.use(
-  '/:boardId/tasks',
-  (req, res, next) => {
-    req.boardId = req.params.boardId;
-    next();
-  },
-  taskRouter
-);
-
-module.exports = router;
+export default router;
