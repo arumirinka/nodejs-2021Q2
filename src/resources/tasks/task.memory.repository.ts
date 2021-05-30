@@ -3,12 +3,22 @@
  * @module task/repo
  */
 
-const Task = require('./task.model');
+import Task from './task.model';
+
+type TTask = {
+  id: any;
+  title: string;
+  order: string;
+  description: string;
+  userId: string;
+  boardId: string;
+  columnId: string;
+};
 
 /**
  * Array of tasks (in-memory tasks db)
  */
-let taskData = [];
+let taskData: Array<Task> = [];
 
 /**
  * Get all tasks from the board with provided id
@@ -16,7 +26,7 @@ let taskData = [];
  * @param {string} boardId - id of the board
  * @returns {Promise<Task[]|undefined>} array of all tasks or undefined in case of no tasks
  */
-const getAllTasksBID = async boardId => {
+const getAllTasksBID = async (boardId: string): Promise<Task[] | undefined> => {
   const res = taskData.filter(task => task.boardId === boardId);
   return res.length > 0 ? res : undefined;
 };
@@ -26,10 +36,10 @@ const getAllTasksBID = async boardId => {
  * @async
  * @param {string} boardId - id of the board
  * @param {string} id - id of the task
- * @returns {Promise<Task>} task
+ * @returns {Promise<Task|undefined>} task
  */
-const getTaskById = async (boardId, id) => {
-  const res = await taskData.find(
+const getTaskById = async (boardId: string, id: string): Promise<Task | undefined> => {
+  const res = taskData.find(
     task => task.boardId === boardId && task.id === id
   );
   return res;
@@ -38,12 +48,12 @@ const getTaskById = async (boardId, id) => {
 /**
  * Add a task to the board with provided id
  * @async
- * @param {Object<Task>} task - task details
+ * @param {Task} task - task details
  * @param {string} boardId - id of the board
  * @returns {Promise<Task>} newly created task
  */
-const addTask = async (task, boardId) => {
-  const newTask = new Task({ ...task, boardId });
+const addTask = async (task: Task, boardId: string): Promise<Task> => {
+  const newTask = new Task({ ...task, boardId } as TTask);
   taskData.push(newTask);
   return newTask;
 };
@@ -52,20 +62,20 @@ const addTask = async (task, boardId) => {
  * Update a task
  * @async
  * @param {string} taskId - id of the task
- * @param {Object<Task>} updTask - task details
+ * @param {Task} updTask - task details
  * @returns {Promise<string>} updated task id
  */
-const updateTask = async (taskId, updTask) => {
+const updateTask = async (taskId: string, updTask: Task): Promise<string> => {
   const { id, title, order, description, userId, boardId, columnId } = updTask;
   taskData.forEach((task, i) => {
     if (task.id === taskId) {
-      taskData[i].id = id;
-      taskData[i].title = title;
-      taskData[i].order = order;
-      taskData[i].description = description;
-      taskData[i].userId = userId;
-      taskData[i].boardId = boardId;
-      taskData[i].columnId = columnId;
+      taskData[i]!.id = id;
+      taskData[i]!.title = title;
+      taskData[i]!.order = order;
+      taskData[i]!.description = description;
+      taskData[i]!.userId = userId;
+      taskData[i]!.boardId = boardId;
+      taskData[i]!.columnId = columnId;
     }
   });
   return taskId;
@@ -77,7 +87,7 @@ const updateTask = async (taskId, updTask) => {
  * @param {string} boardId - id of the board
  * @param {string} taskId - id of the task
  */
-const deleteTask = async (boardId, taskId) => {
+const deleteTask = async (boardId: string, taskId: string): Promise<void> => {
   const i = taskData.findIndex(
     task => task.boardId === boardId && task.id === taskId
   );
@@ -89,7 +99,7 @@ const deleteTask = async (boardId, taskId) => {
  * @async
  * @param {string} boardId - id of the board
  */
-const deleteTasksOnBoardDeletion = async boardId => {
+const deleteTasksOnBoardDeletion = async (boardId: string): Promise<void> => {
   taskData = taskData.filter(task => task.boardId !== boardId);
 };
 
@@ -97,18 +107,16 @@ const deleteTasksOnBoardDeletion = async boardId => {
  * Unassign tasks when the user is being deleted
  * @async
  * @param {string} userId - id of the user
- * @returns {null} null
  */
-const emptyUserIdOnUserDeletion = async userId => {
+const emptyUserIdOnUserDeletion = async (userId: string): Promise<void> => {
   taskData.forEach((task, i) => {
     if (task.userId === userId) {
-      taskData[i].userId = null;
+      taskData[i]!.userId = null;
     }
   });
-  return null;
-}; 
+};
 
-module.exports = {
+export default {
   getAllTasksBID,
   getTaskById,
   addTask,
