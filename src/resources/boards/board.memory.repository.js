@@ -1,21 +1,53 @@
+/**
+ * Board repo
+ * @module board/repo
+ */
+
 const Board = require('./board.model');
 const { deleteTasksOnBoardDeletion } = require('../tasks/task.memory.repository');
 
+/**
+ * Array of boards (in-memory boards db)
+ */
 const boardData = [];
 
+/**
+ * Get all boards
+ * @async
+ * @returns {Promise<Board[]>} array of all boards
+ */
 const getAllBoards = async () => boardData;
 
+/**
+ * Get a board by id
+ * @async
+ * @param {string} id - id of the board
+ * @returns {Promise<Board>} the board
+ */
 const getBoardById = async id => {
   const res = await boardData.find(board => board.id === id);
   return res;
 };
 
+/**
+ * Create a board
+ * @async
+ * @param {Object<Board>} data - data to create the board
+ * @returns {Promise<Board>} newly created board
+ */
 const addBoard = async data => {
   const newBoard = new Board(data);
   boardData.push(newBoard);
   return newBoard;
 };
 
+/**
+ * Update a board
+ * @async
+ * @param {string} boardId - id of the board
+ * @param {Object<Board>} data - data to update in the board
+ * @returns {Promise<string>} updated board id
+ */
 const updateBoard = async (boardId, data) => {
   const { id, title, columns } = data;
   boardData.forEach((board, i) => {
@@ -25,9 +57,15 @@ const updateBoard = async (boardId, data) => {
       boardData[i].columns = columns;
     }
   });
-  return data;
+  return boardId;
 };
 
+/**
+ * Delete a board with provided id
+ * @async
+ * @param {string} id - id of the board
+ * @returns {null} null
+ */
 const deleteBoard = async id => {
   const i = boardData.findIndex(board => board.id === id);
   if (i >= 0) {

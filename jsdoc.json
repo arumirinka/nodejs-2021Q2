@@ -1,0 +1,10 @@
+{
+  "source": {
+    "include": ["src"],
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules/|out/)"
+  },
+  "opts": {
+    "recurse": true
+  }
+}
