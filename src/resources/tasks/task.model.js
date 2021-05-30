@@ -1,6 +1,23 @@
+/**
+ * Task model
+ * @module task/model
+ */
+
 const uuid = require('uuid').v4;
 
+/**
+ * Class representing a task
+ */
 class Task {
+  /**
+   * @param {string} id - task id (uuid)
+   * @param {string} title - task title
+   * @param {string} order - task order
+   * @param {string} description - task description
+   * @param {string} userId - task userId
+   * @param {string} boardId - task boardId
+   * @param {string} columnId - task columnId
+   */
   constructor({
     id = uuid(),
     title = 'Task title',
