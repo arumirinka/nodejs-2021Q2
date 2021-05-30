@@ -3,13 +3,14 @@
  * @module user/repo
  */
 
-const User = require('./user.model');
+import User from "./user.model";
+
 const { emptyUserIdOnUserDeletion } = require('../tasks/task.memory.repository');
 
 /**
  * Array of users (in-memory users db)
  */
-const userData = [];
+const userData: Array<User> = [];
 
 /**
  * Get all users
@@ -24,7 +25,7 @@ const getAll = async () => userData;
  * @param {string} id - id of the user
  * @returns {Promise<User>} the user
  */
-const getUserId = async id => userData.find(user => user.id === id);
+const getUserId = async (id: string) => userData.find(user => user.id === id);
 
 /**
  * Add a user
@@ -32,7 +33,7 @@ const getUserId = async id => userData.find(user => user.id === id);
  * @param {Object<User>} user - data to create the user
  * @returns {Promise<User>} newly created user
  */
-const addUser = async user => {
+const addUser = async (user: User) => {
   const newUser = new User(user);
   userData.push(newUser);
   return newUser;
@@ -45,13 +46,13 @@ const addUser = async user => {
  * @param {Object<User>} data - data to update in the user
  * @returns {Promise<string>} updated user id
  */
-const updateUser = async (id, data) => {
+const updateUser = async (id: string, data: User) => {
   const { name, login, password } = data;
   userData.forEach((user, i) => {
     if (user.id === id) {
-      userData[i].name = name;
-      userData[i].login = login;
-      userData[i].password = password;
+      userData[i]!.name = name;
+      userData[i]!.login = login;
+      userData[i]!.password = password;
     }
   });
   return id;
@@ -63,11 +64,11 @@ const updateUser = async (id, data) => {
  * @param {string} id - id of the user
  * @returns {null} null
  */
-const deleteUser = async id => {
+const deleteUser = async (id: string) => {
   const i = userData.findIndex(user => user.id === id);
   userData.splice(i, 1);
   await emptyUserIdOnUserDeletion(id);
   return null;
 };
 
-module.exports = { getAll, getUserId, addUser, updateUser, deleteUser };
+export default { getAll, getUserId, addUser, updateUser, deleteUser };

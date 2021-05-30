@@ -9,6 +9,14 @@
   * Class representing a user
   */
 class User {
+  id: string;
+
+  name: string;
+
+  login: string;
+
+  password: string;
+
   /**
     * @param {string} id - user id (uuid)
     * @param {string} name - user name
@@ -32,10 +40,10 @@ class User {
    * @param {User} user - user instance
    * @returns {Object} user object without password
    */
-  static toResponse(user) {
+  static toResponse(user: { id: string; name: string; login: string; }) {
     const { id, name, login } = user;
     return { id, name, login };
   }
 }
 
-module.exports = User;
+export default User;

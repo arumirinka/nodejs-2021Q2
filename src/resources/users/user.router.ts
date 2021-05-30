@@ -1,8 +1,10 @@
-const router = require('express').Router();
-const User = require('./user.model');
-const usersService = require('./user.service');
+import * as express from 'express';
+import User from './user.model';
+import usersService from './user.service';
 
-router.route('/').get(async (req, res) => {
+const router = express.Router();
+
+router.route('/').get(async (_req, res) => {
   const users = await usersService.getAll();
   res.json(users.map(User.toResponse));
 });
@@ -25,8 +27,8 @@ router.route('/:id').put(async (req, res) => {
   if (!user) {
     return res.status(404).json({ message: 'User not found' });
   }
-  const updUser = await usersService.updateUser(req.params.id, req.body);
-  return res.status(200).json(User.toResponse(updUser));
+  await usersService.updateUser(req.params.id, req.body);
+  return res.status(200).json({ message: 'User has been updated' });
 });
 
 router.route('/:id').delete(async (req, res) => {
@@ -38,4 +40,4 @@ router.route('/:id').delete(async (req, res) => {
   return res.status(204).json({ message: 'The user has been deleted' });
 });
 
-module.exports = router;
+export default router;
