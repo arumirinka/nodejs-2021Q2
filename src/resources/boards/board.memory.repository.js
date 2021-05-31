@@ -22,7 +22,7 @@ const getAllBoards = async () => boardData;
  * Get a board by id
  * @async
  * @param {string} id - id of the board
- * @returns {Promise<Board>} the board
+ * @returns {Promise<Board|undefined>} board or undefined in case of no board
  */
 const getBoardById = async id => {
   const res = await boardData.find(board => board.id === id);
@@ -32,7 +32,7 @@ const getBoardById = async id => {
 /**
  * Create a board
  * @async
- * @param {Object<Board>} data - data to create the board
+ * @param {Board} data - data to create the board
  * @returns {Promise<Board>} newly created board
  */
 const addBoard = async data => {
@@ -45,7 +45,7 @@ const addBoard = async data => {
  * Update a board
  * @async
  * @param {string} boardId - id of the board
- * @param {Object<Board>} data - data to update in the board
+ * @param {Board} data - data to update in the board
  * @returns {Promise<string>} updated board id
  */
 const updateBoard = async (boardId, data) => {
@@ -64,7 +64,6 @@ const updateBoard = async (boardId, data) => {
  * Delete a board with provided id
  * @async
  * @param {string} id - id of the board
- * @returns {null} null
  */
 const deleteBoard = async id => {
   const i = boardData.findIndex(board => board.id === id);
@@ -72,7 +71,6 @@ const deleteBoard = async id => {
     boardData.splice(i, 1);
     await deleteTasksOnBoardDeletion(id);
   }
-  return null;
 };
 
 module.exports = {

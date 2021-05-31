@@ -16,13 +16,13 @@ const getAllTasksBID = boardId => tasksRepo.getAllTasksBID(boardId);
  * Get a task by id from the board with provided id
  * @param {string} boardId - id of the board
  * @param {string} id - id of the task
- * @returns {Promise<Task>} task
+ * @returns {Promise<Task|undefined>} task or undefined in case of no task
  */
 const getTaskById = (boardId, id) => tasksRepo.getTaskById(boardId, id);
 
 /**
  * Add a task to the board with provided id
- * @param {Object<Task>} task - task details
+ * @param {Task} task - task details
  * @param {string} boardId - id of the board
  * @returns {Promise<Task>} newly created task
  */
@@ -31,7 +31,7 @@ const addTask = (task, boardId) => tasksRepo.addTask(task, boardId);
 /**
  * Update a task
  * @param {string} id - id of the task
- * @param {Object<Task>} task - task details
+ * @param {Task} task - task details
  * @returns {Promise<string>} updated task id
  */
 const updateTask = (id, task) => tasksRepo.updateTask(id, task);

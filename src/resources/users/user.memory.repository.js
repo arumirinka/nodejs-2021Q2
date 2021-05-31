@@ -22,14 +22,14 @@ const getAll = async () => userData;
  * Get a user by id
  * @async
  * @param {string} id - id of the user
- * @returns {Promise<User>} the user
+ * @returns {Promise<User|undefined>} user or undefined in case of no user
  */
 const getUserId = async id => userData.find(user => user.id === id);
 
 /**
  * Add a user
  * @async
- * @param {Object<User>} user - data to create the user
+ * @param {User} user - data to create the user
  * @returns {Promise<User>} newly created user
  */
 const addUser = async user => {
@@ -42,7 +42,7 @@ const addUser = async user => {
  * Update a user
  * @async
  * @param {string} id - id of the user
- * @param {Object<User>} data - data to update in the user
+ * @param {User} data - data to update in the user
  * @returns {Promise<string>} updated user id
  */
 const updateUser = async (id, data) => {
@@ -61,13 +61,11 @@ const updateUser = async (id, data) => {
  * Delete a user with provided id
  * @async
  * @param {string} id - id of the user
- * @returns {null} null
  */
 const deleteUser = async id => {
   const i = userData.findIndex(user => user.id === id);
   userData.splice(i, 1);
   await emptyUserIdOnUserDeletion(id);
-  return null;
 };
 
 module.exports = { getAll, getUserId, addUser, updateUser, deleteUser };

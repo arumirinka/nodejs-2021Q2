@@ -14,7 +14,7 @@ class Task {
    * @param {string} title - task title
    * @param {string} order - task order
    * @param {string} description - task description
-   * @param {string} userId - task userId
+   * @param {string|null} userId - task userId
    * @param {string} boardId - task boardId
    * @param {string} columnId - task columnId
    */

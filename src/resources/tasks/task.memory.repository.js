@@ -26,7 +26,7 @@ const getAllTasksBID = async boardId => {
  * @async
  * @param {string} boardId - id of the board
  * @param {string} id - id of the task
- * @returns {Promise<Task>} task
+ * @returns {Promise<Task|undefined>} task or undefined in case of no task
  */
 const getTaskById = async (boardId, id) => {
   const res = await taskData.find(
@@ -38,7 +38,7 @@ const getTaskById = async (boardId, id) => {
 /**
  * Add a task to the board with provided id
  * @async
- * @param {Object<Task>} task - task details
+ * @param {Task} task - task details
  * @param {string} boardId - id of the board
  * @returns {Promise<Task>} newly created task
  */
@@ -52,7 +52,7 @@ const addTask = async (task, boardId) => {
  * Update a task
  * @async
  * @param {string} taskId - id of the task
- * @param {Object<Task>} updTask - task details
+ * @param {Task} updTask - task details
  * @returns {Promise<string>} updated task id
  */
 const updateTask = async (taskId, updTask) => {
@@ -97,7 +97,6 @@ const deleteTasksOnBoardDeletion = async boardId => {
  * Unassign tasks when the user is being deleted
  * @async
  * @param {string} userId - id of the user
- * @returns {null} null
  */
 const emptyUserIdOnUserDeletion = async userId => {
   taskData.forEach((task, i) => {
@@ -105,7 +104,6 @@ const emptyUserIdOnUserDeletion = async userId => {
       taskData[i].userId = null;
     }
   });
-  return null;
 }; 
 
 module.exports = {

@@ -10,7 +10,7 @@ const uuid = require('uuid').v4;
  * @typedef {Object} Column
  * @property {string} id - column id (uuid)
  * @property {string} title - column title
- * @property {number} order - column order
+ * @property {string} order - column order
  */
 
 /**
@@ -29,7 +29,7 @@ class Board {
       {
         id: uuid(),
         title: 'Column title',
-        order: 0,
+        order: '0',
       }
     ]
   } = {}) {
