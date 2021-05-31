@@ -15,13 +15,13 @@ const getAllBoards = (): Promise<Board[]> => boardsRepo.getAllBoards();
 /**
  * Get a board with the provided id
  * @param {string} id - id of the board
- * @returns {Promise<Board|undefined>} the board
+ * @returns {Promise<Board|undefined>} board or undefined in case of no board
  */
 const getBoardById = (id: string): Promise<Board|undefined> => boardsRepo.getBoardById(id);
 
 /**
  * Add a board to db
- * @param {Object<Board>} data - data to create the board
+ * @param {Board} data - data to create the board
  * @returns {Promise<Board>} newly created board
  */
 const addBoard = (data: Board): Promise<Board> => boardsRepo.addBoard(data);
@@ -29,7 +29,7 @@ const addBoard = (data: Board): Promise<Board> => boardsRepo.addBoard(data);
 /**
  * Update a board
  * @param {string} id - id of the board
- * @param {Object<Board>} data - data to update in the board
+ * @param {Board} data - data to update in the board
  * @returns {Promise<string>} updated board id
  */
 const updateBoard = (id: string, data: Board): Promise<string> => boardsRepo.updateBoard(id, data);

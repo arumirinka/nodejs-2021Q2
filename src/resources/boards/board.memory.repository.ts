@@ -22,7 +22,7 @@ const getAllBoards = async (): Promise<Board[]> => boardData;
  * Get a board by id
  * @async
  * @param {string} id - id of the board
- * @returns {Promise<Board|undefined>} the board
+ * @returns {Promise<Board|undefined>} board or undefined in case of no board
  */
 const getBoardById = async (id: string): Promise<Board|undefined> => {
   const res = boardData.find(board => board.id === id);

@@ -36,7 +36,7 @@ const getAllTasksBID = async (boardId: string): Promise<Task[] | undefined> => {
  * @async
  * @param {string} boardId - id of the board
  * @param {string} id - id of the task
- * @returns {Promise<Task|undefined>} task
+ * @returns {Promise<Task|undefined>} task or undefined in case of no task
  */
 const getTaskById = async (boardId: string, id: string): Promise<Task | undefined> => {
   const res = taskData.find(

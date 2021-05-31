@@ -17,7 +17,7 @@ const getAllTasksBID = (boardId: string): Promise<Task[]|undefined> => tasksRepo
  * Get a task by id from the board with provided id
  * @param {string} boardId - id of the board
  * @param {string} id - id of the task
- * @returns {Promise<Task|undefined>} task
+ * @returns {Promise<Task|undefined>} task or undefined in case of no task
  */
 const getTaskById = (boardId: string, id: string): Promise<Task|undefined> => tasksRepo.getTaskById(boardId, id);
 

@@ -22,14 +22,14 @@ const getAll = async (): Promise<User[]> => userData;
  * Get a user by id
  * @async
  * @param {string} id - id of the user
- * @returns {Promise<User|undefined>} the user
+ * @returns {Promise<User|undefined>} user or undefined in case of no user
  */
 const getUserId = async (id: string): Promise<User|undefined> => userData.find(user => user.id === id);
 
 /**
  * Add a user
  * @async
- * @param {Object<User>} user - data to create the user
+ * @param {User} user - data to create the user
  * @returns {Promise<User>} newly created user
  */
 const addUser = async (user: User): Promise<User> => {
@@ -42,7 +42,7 @@ const addUser = async (user: User): Promise<User> => {
  * Update a user
  * @async
  * @param {string} id - id of the user
- * @param {Object<User>} data - data to update in the user
+ * @param {User} data - data to update in the user
  * @returns {Promise<string>} updated user id
  */
 const updateUser = async (id: string, data: User): Promise<string> => {

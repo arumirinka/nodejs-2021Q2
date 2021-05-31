@@ -16,13 +16,13 @@ const getAll = (): Promise<User[]> => usersRepo.getAll();
 /**
  * Get a user by id
  * @param {string} id - id of the user
- * @returns {Promise<User|undefined>} the user
+ * @returns {Promise<User|undefined>} user or undefined in case of no user
  */
 const getUserId = (id: string): Promise<User|undefined> => usersRepo.getUserId(id);
 
 /**
  * Add a user
- * @param {Object<User>} user - data to create the user
+ * @param {User} user - data to create the user
  * @returns {Promise<User>} newly created user
  */
 const addUser = (user: User): Promise<User> => usersRepo.addUser(user);
@@ -30,7 +30,7 @@ const addUser = (user: User): Promise<User> => usersRepo.addUser(user);
 /**
  * Update a user
  * @param {string} id - id of the user
- * @param {Object<User>} data - data to update in the user
+ * @param {User} data - data to update in the user
  * @returns {Promise<string>} updated user id
  */
 const updateUser = (id: string, data: User): Promise<string> => usersRepo.updateUser(id, data);
