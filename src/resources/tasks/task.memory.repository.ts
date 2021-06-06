@@ -6,7 +6,7 @@
 import Task from './task.model';
 
 type TTask = {
-  id: any;
+  id: string;
   title: string;
   order: string;
   description: string;
