@@ -2,7 +2,8 @@ import express from 'express';
 import swaggerUI from 'swagger-ui-express';
 import path from 'path';
 import YAML from 'yamljs';
-import { logInfo } from './middleware/logger';
+import { errorHandler } from './middleware/errorHandler';
+import { logError, logInfo } from './middleware/logger';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
@@ -27,5 +28,9 @@ app.use('/', (req, res, next) => {
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 app.use('/boards', taskRouter);
+
+app.use(logError);
+
+app.use(errorHandler);
 
 export default app;
