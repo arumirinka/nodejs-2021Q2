@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 
-export const tryCatchErrors = (fn: any) => async (req: Request, res: Response, next: NextFunction) => {
+export const tryCatchErrors = (fn: RequestHandler) => async (req: Request, res: Response, next: NextFunction) => {
   try {
     return await fn(req, res, next);
   } catch (err) {
