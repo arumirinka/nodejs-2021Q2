@@ -48,7 +48,13 @@ export const logError = (err: LogError, req: Request, _res: Response, next: Next
       }, Query parameters: ${JSON.stringify(req.query)}, Path parameters: ${
         JSON.stringify(req.params || {})}, Body: ${JSON.stringify(
         req.body
-      )}, Details: ${err.stack}.`
+      )}. Details: ${err.stack}.`
     );
   });
+};
+
+export const logUnErrors = (message: string, err: LogError) => {
+  logger.error(
+    `Error: ${err.code || 500} ${message} ${err.message}. Details: ${err.stack}.`
+  );
 };

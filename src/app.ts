@@ -2,8 +2,8 @@ import express from 'express';
 import swaggerUI from 'swagger-ui-express';
 import path from 'path';
 import YAML from 'yamljs';
-import { errorHandler } from './middleware/errorHandler';
-import { logError, logInfo } from './middleware/logger';
+import { errorHandler, exitOnUnErr } from './middleware/errorHandler';
+import { logError, logInfo, logUnErrors } from './middleware/logger';
 import userRouter from './resources/users/user.router';
 import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
@@ -32,5 +32,15 @@ app.use('/boards', taskRouter);
 app.use(logError);
 
 app.use(errorHandler);
+
+process.on('unhandledRejection', (err: Error) => {
+  logUnErrors('Unhandled Rejection:', err);
+  exitOnUnErr();
+});
+
+process.on('uncaughtException', err => {
+  logUnErrors('Uncaught Exception:', err);
+  exitOnUnErr();
+});
 
 export default app;

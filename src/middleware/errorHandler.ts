@@ -12,3 +12,10 @@ export const errorHandler = (err: LogError, _req: Request, res: Response, _next:
   }
   res.status(error.code).send(`${err.code} ${err.message}`);
 };
+
+export const exitOnUnErr = () => {
+  const {exit} = process;
+  setTimeout(() => {
+    exit(1);
+  }, 500);
+};
